@@ -144,15 +144,6 @@ getPage(1);
 <template>
     <div class="container">
         <div class="q-pa-md">
-            <q-table
-              flat bordered
-              title="Treats"
-              :rows="rows"
-              :columns="columns"
-              row-key="name"
-              dark
-              color="amber"
-            />
           </div>
         <div>
             <h1>Lista de Productores</h1>
