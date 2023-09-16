@@ -8,12 +8,12 @@ export const producersRoutes = [
         path: 'list',
         name: 'producer-list',
         props: { endpoint, path, pluralTitle },
-        component: () => import('@/shared/pages/ItemListPage.vue')
+        component: () => import('@/producers/pages/ItemListPage.vue')
     },
     {
         path: ':id',
         name: 'producer-id',
         props: { endpoint, singularTitle },
-        component: () => import('@/shared/pages/ItemIdPage.vue')
+        component: () => import('@/producers/pages/ItemIdPage.vue')
     }
 ];

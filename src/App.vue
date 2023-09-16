@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import IconPinia from './shared/components/icons/IconPinia.vue';
+import { routes } from './router/index';
 
 </script>
 
@@ -10,9 +11,15 @@ import IconPinia from './shared/components/icons/IconPinia.vue';
     <h3>Pinia - Ejercicios</h3>
 
     <nav>
-      <RouterLink to="/producers">Productores</RouterLink>
+      <!-- <RouterLink to="/producers">Productores</RouterLink>
       <RouterLink to="/labels">Etiquetas</RouterLink>
-      <RouterLink to="/distributors">Distribuidores</RouterLink>
+      <RouterLink to="/distributors">Distribuidores</RouterLink> -->
+      <RouterLink 
+        v-for="route in routes"
+        :key="route.path"
+        :to="route.path">
+        {{ route.meta.title }}
+      </RouterLink>
     </nav>
   </div>
   <div class="content">
