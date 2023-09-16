@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { endpoint, path, pluralTitle } = defineProps<Props>();
-const { items, isLoading, totalPages, params, setPage } = useFetchItems(endpoint);
+const { items, isLoading, totalPages, params, setPage, refetch } = useFetchItems(endpoint);
 
 setPage(1);
 
@@ -19,13 +19,14 @@ setPage(1);
 <template>
     <div>
         <h1>{{ pluralTitle }}</h1>
-        <ItemList
-            :path="path"
-            :items="items"
-            :limit="params.limit"
-            :isLoading="isLoading"
-          />
+        <button @click="refetch">Refetch</button>
     </div>
+    <ItemList
+        :path="path"
+        :items="items"
+        :limit="params.limit"
+        :isLoading="isLoading"
+      />
 
     <PaginationNumbers
         :page="params.page"

@@ -27,22 +27,20 @@ const getItems = async <T>(endpoint: string, params: AgroeasyParams): Promise<Ag
     if (endpoint === '') return { limit: 0, page: 0, sort: '', order: '', total: 0, data: [] };
     
     const { data } = await axiosClient.get<AgroeasyResponse<T>>(endpoint, { params });
+    console.log('data', data);
     return data;
 }
 
+const store = usePaginationStore();
+const { params, totalItems, totalPages, items } = storeToRefs(store);
 
 export const useFetchItems = (endpoint: string) => {
-
-    const store = usePaginationStore();
-    const { params, totalItems, totalPages, items } = storeToRefs(store);
 
     const { isLoading, data } = useQuery(
         [endpoint, params],
         () => getItems(endpoint, params.value as any),
         {
-            refetchOnMount: true,
-            refetchOnWindowFocus: true,
-            staleTime: 0,
+            cacheTime: 1000 * 5,
         }
     );
 
@@ -58,6 +56,11 @@ export const useFetchItems = (endpoint: string) => {
         isLoading,
         totalPages,
         params,
+        refetch: async () => {
+            store.setPage(1);
+            const { data } = await getItems(endpoint, params.value as any);
+            items.value = data;
+        },
 
         // Getters
         setPage: store.setPage,
