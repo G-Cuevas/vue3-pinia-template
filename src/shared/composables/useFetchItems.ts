@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/vue-query';
-import { storeToRefs, type StoreGeneric } from 'pinia';
+import { storeToRefs } from 'pinia';
 
 import { computed } from 'vue';
 import axiosClient from '../../api/agroeasyApi';
@@ -24,10 +24,8 @@ interface AgroeasyResponse<T> {
 
 
 const getItems = async <T>(endpoint: string, params: AgroeasyParams): Promise<AgroeasyResponse<T>> => {
-    if (endpoint === '') return { limit: 0, page: 0, sort: '', order: '', total: 0, data: [] };
     
     const { data } = await axiosClient.get<AgroeasyResponse<T>>(endpoint, { params });
-    console.log('data', data);
     return data;
 }
 
