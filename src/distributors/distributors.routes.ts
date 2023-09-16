@@ -7,13 +7,13 @@ export const distributorsRoutes = [
     {
         path: 'list',
         name: 'distributor-list',
-        props: { endpoint, path, pluralTitle },
-        component: () => import('@/distributors/pages/ItemListPage.vue')
+        props: { endpoint, path, pluralTitle, key: path },
+        component: () => import('@/shared/pages/ItemListPage.vue')
     },
     {
         path: ':id',
         name: 'distributor-id',
-        props: { endpoint, singularTitle },
-        component: () => import('@/distributors/pages/ItemIdPage.vue')
+        props: { endpoint, singularTitle, key: path  },
+        component: () => import('@/shared/pages/ItemIdPage.vue')
     }
 ];

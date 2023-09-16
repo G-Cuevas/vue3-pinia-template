@@ -7,13 +7,13 @@ export const labelsRoutes = [
     {
         path: 'list',
         name: 'label-list',
-        props: { endpoint, path, pluralTitle },
-        component: () => import('@/labels/pages/ItemListPage.vue')
+        props: { endpoint, path, pluralTitle, key: path },
+        component: () => import('@/shared/pages/ItemListPage.vue')
     },
     {
         path: ':id',
         name: 'label-id',
-        props: { endpoint, singularTitle },
-        component: () => import('@/labels/pages/ItemIdPage.vue')
+        props: { endpoint, singularTitle, key: path },
+        component: () => import('@/shared/pages/ItemIdPage.vue')
     }
 ];

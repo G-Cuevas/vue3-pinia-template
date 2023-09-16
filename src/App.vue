@@ -11,14 +11,11 @@ import { routes } from './router/index';
     <h3>Pinia - Ejercicios</h3>
 
     <nav>
-      <!-- <RouterLink to="/producers">Productores</RouterLink>
-      <RouterLink to="/labels">Etiquetas</RouterLink>
-      <RouterLink to="/distributors">Distribuidores</RouterLink> -->
       <RouterLink 
-        v-for="route in routes"
-        :key="route.path"
-        :to="route.path">
-        {{ route.meta.title }}
+        v-for="{ path, meta } in routes"
+        :key="path"
+        :to="path">
+        {{ meta.title }}
       </RouterLink>
     </nav>
   </div>
