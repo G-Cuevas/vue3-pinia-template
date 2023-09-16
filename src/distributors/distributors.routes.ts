@@ -1,18 +1,18 @@
-const endpoint = 'paletization/producers';
-const path = 'producer'
-const pluralTitle = 'Productores'
-const singularTitle = 'Productor'
+const endpoint = 'paletization/distributors';
+const path = 'distributor'
+const pluralTitle = 'Distribuidores'
+const singularTitle = 'Distribuidor'
 
-export const producersRoutes = [
+export const distributorsRoutes = [
     {
         path: 'list',
-        name: 'producer-list',
+        name: 'distributor-list',
         props: { endpoint, path, pluralTitle },
         component: () => import('@/shared/pages/ItemListPage.vue')
     },
     {
         path: ':id',
-        name: 'producer-id',
+        name: 'distributor-id',
         props: { endpoint, singularTitle },
         component: () => import('@/shared/pages/ItemIdPage.vue')
     }

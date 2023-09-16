@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/vue-query';
 
 import { computed } from 'vue';
-import agroeasyApi from '../../api/agroeasyApi';
+import axiosClient from '../../api/agroeasyApi';
 
 const getItem = async <T>(endpoint: string, id: number | string): Promise<T> => {
 
-    const { data } = await agroeasyApi.get<T>(`${endpoint}/${id}`);
+    const { data } = await axiosClient.get<T>(`${endpoint}/${id}`);
     return data;
 }
 

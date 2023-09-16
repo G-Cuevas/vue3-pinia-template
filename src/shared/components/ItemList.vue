@@ -7,6 +7,7 @@ export interface ListProps {
     isLoading: boolean;
     items: any[];
     limit: number;
+    path: string;
 }
 
 const props = defineProps<ListProps>();
@@ -18,14 +19,14 @@ const props = defineProps<ListProps>();
         <LoadingModal v-if="props.isLoading" />
         <li
             v-else
-            v-for="index in props.items.length"
-            :key="index"
+            v-for="{ id, name } of props.items"
+            :key="id"
         >
             <RouterLink :to="{
-                name: 'producer-id',
-                params: { id: items[index - 1].id }
+                name: `${path}-id`,
+                params: { id }
             }">
-                <span> {{ index }}.- Id: {{ items[index - 1].id }} </span>
+                <span> Id: {{ id }} Name: {{ name }} </span>
             </RouterLink>
         </li>
     </ul>

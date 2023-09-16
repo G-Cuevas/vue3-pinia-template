@@ -2,7 +2,8 @@ import { useQuery } from '@tanstack/vue-query';
 import { storeToRefs, type StoreGeneric } from 'pinia';
 
 import { computed } from 'vue';
-import agroeasyApi from '../../api/agroeasyApi';
+import axiosClient from '../../api/agroeasyApi';
+import { usePaginationStore } from '@/store/pagination.store.';
 
 interface AgroeasyParams {
     limit?: number;
@@ -21,26 +22,27 @@ interface AgroeasyResponse<T> {
     data: T[];
 }
 
-const getItems = async <T>(endpoint: string, params: AgroeasyParams): Promise<AgroeasyResponse<T>> => {
 
-    const { data } = await agroeasyApi.get<AgroeasyResponse<T>>(endpoint, { params });
+const getItems = async <T>(endpoint: string, params: AgroeasyParams): Promise<AgroeasyResponse<T>> => {
+    if (endpoint === '') return { limit: 0, page: 0, sort: '', order: '', total: 0, data: [] };
+    
+    const { data } = await axiosClient.get<AgroeasyResponse<T>>(endpoint, { params });
     return data;
 }
 
 
-export const useItems = <T>(endpoint: string, store: StoreGeneric) => {
+export const useFetchItems = (endpoint: string) => {
 
+    const store = usePaginationStore();
     const { params, totalItems, totalPages, items } = storeToRefs(store);
 
     const { isLoading, data } = useQuery(
         [endpoint, params],
-        () => getItems<T>(endpoint, params.value as AgroeasyParams),
+        () => getItems(endpoint, params.value as any),
         {
-            cacheTime: 1000 * 3,
-            staleTime: Infinity,
-            refetchInterval: 1000 * 5,
-            refetchIntervalInBackground: true,
             refetchOnMount: true,
+            refetchOnWindowFocus: true,
+            staleTime: 0,
         }
     );
 
@@ -58,9 +60,7 @@ export const useItems = <T>(endpoint: string, store: StoreGeneric) => {
         params,
 
         // Getters
-        getPage: (page: number) => {
-            store.setPage(page);
-        }
+        setPage: store.setPage,
 
         // Actions
     }
