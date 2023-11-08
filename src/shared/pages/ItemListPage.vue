@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { endpoint, path, pluralTitle } = defineProps<Props>();
-const { items, isLoading, totalPages, params, setPage, refetch } = useFetchItems(endpoint);
+const { items, isLoading, totalPages, params, setPage } = useFetchItems(endpoint);
 
 setPage(1);
 

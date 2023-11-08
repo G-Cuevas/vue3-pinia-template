@@ -54,11 +54,6 @@ export const useFetchItems = (endpoint: string) => {
         isLoading,
         totalPages,
         params,
-        refetch: async () => {
-            store.setPage(1);
-            const { data } = await getItems(endpoint, params.value as any);
-            items.value = data;
-        },
 
         // Getters
         setPage: store.setPage,
